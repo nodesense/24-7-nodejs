@@ -1,4 +1,7 @@
 const minimist = require('minimist');
+const http = require('http');
+
+const app = require('./app'); // index.js is default
 
 const args = minimist(process.argv.slice(2))
 
@@ -9,7 +12,14 @@ const NODE_ENV = process.env.NODE_ENV || 'development'
 console.log('Starting server at ', HOST_IP, PORT)
 console.log('Running on ', NODE_ENV)
 
-//console.log(process.env);
+const server = http.createServer(app);
 
+server.listen(PORT, HOST_IP, function(error){
+    if (!error) {
+        console.log('SERVER STARTED')
+    }
+})
+
+//console.log(process.env);
 // console.log(process.argv)
 // console.log(args)

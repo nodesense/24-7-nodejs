@@ -9,3 +9,27 @@
     > npm install
 
     > npm start
+
+
+# Cassandra
+
+    DESCRIBE keyspaces;
+    USE workshop247
+    describe tables;
+    select * from brands;
+
+# Okta
+    https://developer.okta.com/signup/
+
+    npm i @okta/jwt-verifier cors
+    
+    https://github.com/oktadeveloper/okta-react-node-example
+    cd okta-react-node-example
+    npm i cross-env -g
+    npm install
+
+    add local env
+
+     npm start 
+
+
