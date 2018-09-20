@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon src/server.js --ip 127.0.0.1 --port 8080",
     "build": "echo building app",
-    "test": "echo starting test"
+    "test": "mocha src/test"
   },
   "keywords": [],
   "author": "",
@@ -15,11 +15,21 @@
     "@okta/jwt-verifier": "0.0.12",
     "body-parser": "^1.18.3",
     "cassandra-driver": "^3.5.0",
+    "chai": "^4.1.2",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "istanbul": "^0.4.5",
     "jsonfile": "^4.0.0",
     "lodash": "^3.10.1",
     "minimist": "^1.2.0",
+    "nyc": "^13.0.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "supertest": "^3.2.0",
+    "uuid": "^3.3.2",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
     "mocha": "^5.2.0"
   }
 }

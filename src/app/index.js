@@ -1,16 +1,19 @@
 // MVC Library for node.js
+// index.js under app
 const express = require('express');
 const bodyParser = require('body-parser')
 const events = require('events')
 
 const brandRouter = require('./routes/brand');
 
+const productController = require('./routes/product');
+
 // middlewares
 const appKeyMiddleware = require('./lib/auth/appKeyMiddleware');
 
 const fsErrorMiddleware = require('./lib/errors/fsErrorMiddleware');
 
-const oktaAuthRequired = require('./lib/auth/oktaAuth');
+//const oktaAuthRequired = require('./lib/auth/oktaAuth');
 
 // create express application
 const app = express();
@@ -37,6 +40,9 @@ app.use(function (req, res, next) {
 
 // middleware 
 app.use('/api', brandRouter);
+
+app.use('/api/products/:id', productController.getProduct)
+app.use('/api/products', productController.getProducts)
 
 app.use(function (req, res, next) {
     console.log('Middleware 3', req.url)
@@ -108,12 +114,27 @@ app.get('/interval', function(req, res){
 })
 
 
+app.get("/instance", function(req, res){
+    res.json({
+        pid: process.pid
+    })
+})
+
+
+app.get("/infinite", function(req, res){
+    while(true) {
+        for(var i; i < 100000; i++) {
+            
+        }
+    }
+})
 
 
 
-app.get('/secure', oktaAuthRequired, (req, res) => {
-    res.json(req.jwt);
-  });
+
+// app.get('/secure', oktaAuthRequired, (req, res) => {
+//     res.json(req.jwt);
+//   });
 
 
 

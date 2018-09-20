@@ -7,6 +7,8 @@ const cassandraClient = require('../config/cassandra')
  
 const Brand = require('../models/brand');
 
+const logger = require('../config/logger');
+
 //api/brands/list
  
 //router.use('/brands', appKeyMiddleware)
@@ -67,6 +69,38 @@ router.post('/brands', function(req, res){
             })
          })
 
+})
+
+router.get('/brands/:id', function(req, res){
+    console.log('user agent ', req.header('user-agent'))
+    const id = req.params.id; // use req.params to get url data
+    Brand.get(id)
+        .then (function(result) {
+            if (result) { // if we found data in db
+                return res.json(result)
+            }
+
+            logger.warn(' Brand ' + id + ' is not found')
+
+            return res.status(404) // if data not available
+                      .json({
+                          error: true,
+                          message: 'brand not found'
+                      })
+        })
+        .catch (function(error) {
+            res.status(500).json({error: error})
+        })
+})
+
+router.delete('/brands/:id', function(req, res) {
+    Brand.delete(req.params.id)
+        .then (function(result) {
+           return res.json(result)
+        })
+        .catch (function(error) {
+            res.status(500).json({error: error})
+        })
 })
   
 
