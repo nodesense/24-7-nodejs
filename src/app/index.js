@@ -13,10 +13,14 @@ const appKeyMiddleware = require('./lib/auth/appKeyMiddleware');
 
 const fsErrorMiddleware = require('./lib/errors/fsErrorMiddleware');
 
-//const oktaAuthRequired = require('./lib/auth/oktaAuth');
+var cors = require('cors')
+
+const oktaAuthRequired = require('./lib/auth/oktaAuth');
 
 // create express application
 const app = express();
+
+app.use(cors())
 
 app.use(bodyParser.json());
 
@@ -129,15 +133,12 @@ app.get("/infinite", function(req, res){
     }
 })
 
-
-
-
-// app.get('/secure', oktaAuthRequired, (req, res) => {
-//     res.json(req.jwt);
-//   });
-
-
-
+app.get('/secure', oktaAuthRequired, (req, res) => {
+    res.json({
+        jwt: req.jwt,
+        title: 'secured'
+    });
+});
 
 app.use(fsErrorMiddleware)
 
